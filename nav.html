@@ -1,0 +1,619 @@
+						<li><a target="content" href="gw_undergrad/math_2233"></a>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<meta name="robots" content="noindex,follow">
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery-ui.custom.js" type="text/javascript"></script>
+
+	<link href="src/skin-win8/ui.fancytree.css" rel="stylesheet" type="text/css">
+	<script src="src/jquery.fancytree.js" type="text/javascript"></script>
+	<script src="sample.js" type="text/javascript"></script>
+	<title>josephcrandall.com</title>
+<style type="text/css">
+body {
+	background-color: #39414A;
+	color: white;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: smaller;
+	background-image: url("");
+	background-repeat: repeat-x;
+}
+div#tree {
+	position: absolute;
+	height: 98%;
+	width: 98%;
+	padding: 5px;
+	margin-right: 30px;
+}
+ul.fancytree-container {
+	height: 100%;
+	width: 100%;
+	background-color: transparent;
+}
+span.fancytree-node span.fancytree-title {
+	color: orange;
+	text-decoration: none;
+}
+span.fancytree-focused span.fancytree-title {
+	outline-color: white;
+}
+span.fancytree-node:hover span.fancytree-title,
+span.fancytree-active span.fancytree-title,
+span.fancytree-active.fancytree-focused span.fancytree-title,
+.fancytree-treefocus span.fancytree-title:hover,
+.fancytree-treefocus span.fancytree-active span.fancytree-title {
+	color: #39414A;
+}
+span.external span.fancytree-title:after {
+	content: "";
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAFVBMVEVmmcwzmcyZzP8AZswAZv////////9E6giVAAAAB3RSTlP///////8AGksDRgAAADhJREFUGFcly0ESAEAEA0Ei6/9P3sEcVB8kmrwFyni0bOeyyDpy9JTLEaOhQq7Ongf5FeMhHS/4AVnsAZubxDVmAAAAAElFTkSuQmCC") 100% 50% no-repeat;
+	padding-right: 13px;
+}
+/* Remove system outline for focused container */
+.ui-fancytree.fancytree-container:focus {
+	outline: none;
+}
+.ui-fancytree.fancytree-container {
+	border: none;
+}
+</style>
+
+<script type="text/javascript">
+$(function(){
+	// --- Initialize sample trees
+	$("#tree").fancytree({
+		autoActivate: false, // we use scheduleAction()
+		autoCollapse: true,
+//			autoFocus: true,
+		autoScroll: true,
+		clickFolderMode: 3, // expand with single click
+		minExpandLevel: 2,
+		tabbable: false, // we don't want the focus frame
+		// scrollParent: null, // use $container
+		focus: function(event, data) {
+			var node = data.node;
+			// Auto-activate focused node after 1 second
+			if(node.data.href){
+				node.scheduleAction("activate", 1000);
+			}
+		},
+		blur: function(event, data) {
+			data.node.scheduleAction("cancel");
+		},
+		activate: function(event, data){
+			var node = data.node,
+				orgEvent = data.originalEvent || {};
+
+			if(node.data.href){
+				window.open(node.data.href, (orgEvent.ctrlKey || orgEvent.metaKey) ? "_blank" : node.data.target);
+			}
+			if( window.parent &&  parent.history && parent.history.pushState ) {
+				// Add #HREF to URL without actually loading content
+				parent.history.pushState({title: node.title}, "", "#" + (node.data.href || ""));
+			}
+		},
+		click: function(event, data){ // allow re-loads
+			var node = data.node,
+				orgEvent = data.originalEvent;
+
+			if(node.isActive() && node.data.href){
+				// data.tree.reactivate();
+				window.open(node.data.href, (orgEvent.ctrlKey || orgEvent.metaKey) ? "_blank" : node.data.target);
+			}
+		}
+	});
+	// On page load, activate node if node.data.href matches the url#href
+	var tree = $(":ui-fancytree").fancytree("getTree"),
+		frameHash = window.parent && window.parent.location.hash;
+
+	if( frameHash ) {
+		frameHash = frameHash.replace("#", "");
+		tree.visit(function(n) {
+			if( n.data.href && n.data.href === frameHash ) {
+				n.setActive();
+				return false; // done: break traversal
+			}
+		});
+	}
+});
+</script>
+</head>
+
+<body>
+	<div id="tree">
+	<ul>
+	<li><a target="content" href="welcome.html">Welcome</a>
+	<li class="folder expanded">Academic
+		<ul>
+			<li class="folder">GW Undergraduate
+			<ul>
+				<li><a target="content" href="gw_undergrad/extra/transcript.pdf">Transcript</a>
+				<li class="folder">Computer Science
+					<ul>
+					<li class="folder">CSCI 1023 Introduction to Web Software Development
+						<ul>
+						<li class="external"><a target="_blank" href="https://github.com/JosephCrandall44/CSCI_1023_Introduction_to_Web_Software_Development.git">GitHub</a>
+						</ul>
+					<li class="folder">CSCI 1111 Introduction to Software Development
+						<ul>
+						<li class="external"><a target="_blank" href="https://github.com/JosephCrandall44/CSCI_1111_Introduction_to_Software_Development.git">GitHub</a>
+						<li><a target="content" href="gw_undergrad/csci_1111/notes_csci_1111.pdf">notes</a>
+						<li><a target="content" href="gw_undergrad/csci_1111/quizzes_csci_1111.pdf">quizzes</a>
+						<li><a target="content" href="gw_undergrad/csci_1111/lab_power_points_csci_1111.pdf">recitation TA slides</a>
+						</ul>
+					<li class="folder">CSCI 1112 Algorithms and Data Structures I
+						<ul>
+						<li class="folder">exams
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_1112/exam/Bari_Final_EXAM_Hashmap_review.pdf">Bari_Final_EXAM_Hashmap_review.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/exam/Bari_Final_EXAM.pdf">Bari_Final_EXAM.pdf</a>
+
+							</ul>
+						<li class="external"><a target="_blank" href="https://github.com/JosephCrandall44/CSCI_1112_Algorithms_and_Data_Structures.git">GitHub</a>
+						<li class="folder">lectures
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/Arrays_ArrayLists.pdf">Arrays_ArrayLists.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/Big_O_analysis.pdf">Big_O_analysis.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/binarySearchTree.pdf">binarySearchTree.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/exceptions_and_Inheritance.pdf">exceptions_and_Inheritance.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/findingMin.pdf">findingMin.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/graphs.pdf">graphs.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/JavaReview_OOP_Review.pdf">JavaReview_OOP_Review.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/lectureIntroToTreesGraphs.pdf">linkedLists.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/recursion.pdf">recursion.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1112/lectures/sortingAlgorithms.pdf">sortingAlgorithms.pdf</a>
+							</ul>
+						</ul>
+					<li class="folder">CSCI 1311 Discrete Structures I
+						<ul>
+						<li><a target="content" href="gw_undergrad/csci_1311/csci_1311_syllabus.pdf">syllabus</a>
+						<li class="folder">exams
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_1311/exam/CSCI1311_Midterm.pdf">midterm</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/exam/CSCI1311_MidtermSolutions.pdf">midterm solutions</a>
+							</ul>
+						<li class="folder">hw
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW1.pdf">hw1</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW1Solutions.pdf">hw1 solutions</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW2.pdf">hw2</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW2Solutions.pdf">hw2 solutions</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW3.pdf">hw3</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW3Solutions.pdf">hw3 solutions</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW4.pdf">hw4</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW4Solutions.pdf">hw4 solutions</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW5.pdf">hw5</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW5Solutions(not complete).pdf">hw5 solutions</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW6.pdf">hw6</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/hw/CSCI1311_HW6Solutions.pdf">hw6 solutions</a>
+							</ul>
+						<li class="folder">notes
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_1311/notes/boolean_notes.pdf">boolean</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/notes/karnauh_maps.pdf">karnauh_maps.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/notes/logic_tareview.pdf">Ta logic reivew</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/notes/relations.pdf">relations</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/notes/sets.pdf">sets</a>
+							</ul>
+						<li class="folder">quizes
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz2.pdf">quiz 2</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz3.pdf">quiz 3</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz4.pdf">quiz 4</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz5.pdf">quiz 5</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz6.pdf">quiz 6</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz7.pdf">quiz 7</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz8.pdf">quiz 8</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz9.pdf">quiz 9</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz10.pdf">quiz 10</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz11.pdf">quiz 11</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz12.pdf">quiz 12</a>
+							<li><a target="content" href="gw_undergrad/csci_1311/quiz/CSCI1311_Quiz13.pdf">quiz 13</a>
+							</ul>
+						</ul>
+					<li class="folder">CSCI 2113 Software Engineering
+						<ul>
+						<li class="folder">exams
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2113/exams/finalExam1.pdf">final exam 1</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/exams/finalExam2.pdf">final exam 2</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/exams/finalStudyGuide.pdf">final study guide</a>
+							</ul>
+						<li class="external"><a target="_blank" href="https://github.com/JosephCrandall44/CSCI_2113_Softwear_Engineering.git">GitHub</a>
+						<li class="folder">notes
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/aggregateOperations.pdf">aggregateOperations.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/allSlides.pdf">allSlides.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/exceptions.pdf">exceptions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/handWrittenNotes.pdf">handWrittenNotes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/inheritance.pdf">inheritance.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/typedNotes.pdf">typedNotes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/UML_Distilled.pdf">UML_Distilled.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W01_Intro_to_C.pdf">W01_Intro_to_C.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W02_Arrays_&_Pointers.pdf">W02_Arrays_&_Pointers.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W03_Structs_&_Lists.pdf">W03 Structs & Lists</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W04_Abstraction_&_Objects.pdf">W04 Abstraction & Objects</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W05_Arrays_&_Lists_2.pdf">W05 Arrays & Lists 2</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W07_Exceptions_and_Inheritance.pdf">W07_Exceptions_and_Inheritance</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W10_Swing.pdf">W10_Swing.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W11_Design Patterns_1.pdf">W11_Design Patterns_1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W11_Design Patterns_2.pdf">W11_Design Patterns_2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W12_Process_Models.pdf">W12_Process_Models.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2113/notes/W13_WOOA_OOD.pdf">W13_WOOA_OOD.pdf</a>
+							</ul>
+						</ul>
+					<li class="folder">CSCI 2312 Discrete Structures II
+						<ul>
+						<li class="folder">concepts
+							<ul>
+							<li class="folder">Asymptotics
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Asymptotics/Asymptotics_9Sept-1.pdf">Asymptotics_9Sept-1.pdf</a>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Asymptotics/AsymptoticsSummary.pdf">AsymptoticsSummary.pdf</a>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Asymptotics/CS2312DiscussionAsymptoticsSolutions.pdf">CS2312DiscussionAsymptoticsSolutions.pdf</a>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Asymptotics/InClassProblems4Sept.pdf">InClassProblems4Sept.pdf</a>
+								</ul>
+							<li class="folder">Big_Theta
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Big_Theta/BigThetaSolutions.pdf">BigThetaSolutions.pdf</a>
+								</ul>
+							<li class="folder">Counting_Loops
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Counting_Loops/CountingLoops.pdf">CountingLoops.pdf</a>
+								</ul>
+							<li class="folder">Graph_Theory
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Graph_Theory/CS2312PracticeGraphsI.pdf">CS2312PracticeGraphsI.pdf</a>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Graph_Theory/CS2312PracticeGraphsISomeSolutions.pdf">CS2312PracticeGraphsISomeSolutions.pdf</a>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Graph_Theory/GraphTheory.pdf">GraphTheory.pdf</a>
+
+								</ul>
+							<li class="folder">Greatest_Common_Divisor
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Greatest_Common_Divisor/GCDAndInvertibility.pdf">GCDAndInvertibility.pdf</a>
+								</ul>
+							<li class="folder">Groups
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Groups/GroupsDefinition.pdf">GroupsDefinition.pdf</a>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Groups/GroupsII.pdf">GroupsII.pdf</a>
+								</ul>
+							<li class="folder">Induction
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Induction/InductionSolutions.pdf">InductionSolutions.pdf</a>
+								</ul>
+							<li class="folder">Inverse
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Inverse/InversePractice.pdf">InversePractice.pdf</a>
+								</ul>
+							<li class="folder">Isomorphisms
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Isomorphisms/Isomorphisms_1.pdf">Isomorphisms_1.pdf</a>
+								</ul>
+							<li class="folder">Subgroups_and_Rings
+								<ul>
+								<li><a target="content" href="gw_undergrad/csci_2312/concepts/Subgroups_and_Rings/GroupsII.pdf">GroupsII.pdf</a>
+								</ul>
+							</ul>
+						<li><a target="content" href="gw_undergrad/csci_2312/CSCI2312_CourseDescription.pdf">CSCI2312_CourseDescription.pdf</a>
+						<li><a target="content" href="gw_undergrad/csci_2312/CSCI2312_Syllabus.pdf">CSCI2312_Syllabus.pdf</a>
+						<li class="folder">exam
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2312/exam/Test1_08-02-14.pdf">Test1_08/02/14.pdf</a>
+							</ul>
+						<li class="folder">hw
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2312/hw/hw1.pdf">hw1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/hw/HW1Solutions.pdf">HW1Solutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/hw/hw2.pdf">hw2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/hw/HW2Solutions.pdf">HW2Solutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/hw/hw3.pdf">hw3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/hw/HW3Solutions.pdf">HW3Solutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/hw/hw4.pdf">hw4.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/hw/HW4Solutions.pdf">HW4Solutions.pdf</a>
+							</ul>
+						<li class="folder">lectures
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/CountingLoops.pdf">CountingLoops.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/CS2312_Discussion_Session_3Nov.pdf">CS2312_Discussion_Session_3Nov.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/CS2312_Discussion_Session_27Oct.pdf">CS2312_Discussion_Session_27Oct.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/CS2312_PracticeProblems_Groups.pdf">CS2312_PracticeProblems_Groups.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/EuclideanWorks.pdf">EuclideanWorks.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/GCDAndInvertibility.pdf">GCDAndInvertibility.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/geometric.pdf">geometric.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/GroupsDefinition.pdf">GroupsDefinition.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/GroupsII.pdf">GroupsII.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/Isomorphisms.pdf">Isomorphisms.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/MathforComputerScience.pdf">MathforComputerScience.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/ModularArithmetic.pdf">ModularArithmetic.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/PracticeCongruence.pdf">PracticeCongruence.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/lectures/ShiftAndAffineCiphers.pdf">ShiftAndAffineCiphers.pdf</a>
+							</ul>
+						<li class="folder">notes
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/Asymptotics_9Sept.pdf">Asymptotics_9Sept.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CS2312_Discussion_Asymptotics.pdf">CS2312_Discussion_Asymptotics.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_08-26-14Notes.pdf">CSCI2312_08-26-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_08-28-14Notes.pdf">CSCI2312_08-28-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-04-14Notes.pdf">CSCI2312_09-04-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-08-14NotesPart1.pdf">CSCI2312_09-08-14NotesPart1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-08-14NotesPart2.pdf">CSCI2312_09-08-14NotesPart2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-08-14NotesPart3.pdf">CSCI2312_09-08-14NotesPart3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-11-14Notes.pdf">CSCI2312_09-11-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-16-14Notes.pdf">CSCI2312_09-16-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-18-14Notes.pdf">CSCI2312_09-18-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-25-14Notes.pdf">CSCI2312_09-25-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-28-14Notes.pdf">CSCI2312_09-28-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_09-29-14Notes.pdf">CSCI2312_09-29-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_10-09-14Notes.pdf">CSCI2312_10-09-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_10-28-14Notes.pdf">CSCI2312_10-28-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_11-18-14Notes.pdf">CSCI2312_11-18-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_11-24-14Notes.pdf">CSCI2312_11-24-14Notes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_Asymptotic_Analysis_2_Big_Omega_and_Bog-Oh Notation.pdf">CSCI2312_Asymptotic_Analysis_2_Big_Omega_and_Bog-Oh Notation.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_Asymptotics_09-09-14.pdf">CSCI2312_Asymptotics_09-09-14.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_AsymptoticsNotes.pdf">CSCI2312_AsymptoticsNotes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_Big-Theta_Big-Omega.pdf">CSCI2312_Big-Theta_Big-Omega.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_CancellationModulo-m.pdf">CSCI2312_CancellationModulo-m.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_Mathematical_Induction_Review.pdf">CSCI2312_Mathematical_Induction_Review.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/CSCI2312_Test_1_Review.pdf">CSCI2312_Test_1_Review.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/notes/Discreate_Structures_II_Mathmatical_Induction_Review.pdf">Discreate_Structures_II_Mathmatical_Induction_Review.pdf</a>
+							</ul>
+						<li class="folder">practice_problems
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2312/practice_problems/CS2312_PracticeProblems_Groups-3.pdf">CS2312_PracticeProblems_Groups-3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/practice_problems/CS2312_PracticeProblems_Groups-5.pdf">CS2312_PracticeProblems_Groups-5.pdf</a>
+							</ul>
+						<li class="folder">questions
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2312/questions/MondaySectionBigTheta.pdf">MondaySectionBigTheta.pdf</a>
+							</ul>
+						<li class="folder">quiz
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CS2312_LQ2MondaySolutions.pdf">CS2312_LQ2MondaySolutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CS2312_LQ2WedSolutions.pdf">CS2312_LQ2WedSolutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CS2312PracticeGraphsISomeSolutions-1.pdf">CS2312PracticeGraphsISomeSolutions-1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSci_2312_LQ_1_Solution.pdf">CSci_2312_LQ_1_Solution.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSci_2312_Quiz_2_Solutions.pdf">CSci_2312_Quiz_2_Solutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSci_2312_Quiz_3_MakeUp_Solutions.pdf">CSci_2312_Quiz_3_MakeUp_Solutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSci_2312_Quiz_4_Solutions-1.pdf">CSci_2312_Quiz_4_Solutions-1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSci_2312_Quiz_4_Solutions.pdf">CSci_2312_Quiz_4_Solutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz0.pdf">CSCI2312_LittleQuiz0.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz00.pdf">CSCI2312_LittleQuiz00.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz1.pdf">CSCI2312_LittleQuiz1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz1PartB.pdf">CSCI2312_LittleQuiz1PartB.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz2.pdf">CSCI2312_LittleQuiz2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz3.pdf">CSCI2312_LittleQuiz3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz4.pdf">CSCI2312_LittleQuiz4.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz5.pdf">CSCI2312_LittleQuiz5.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz6.pdf">CSCI2312_LittleQuiz6.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz7.pdf">CSCI2312_LittleQuiz7.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz8.pdf">CSCI2312_LittleQuiz8.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz8extra.pdf">CSCI2312_LittleQuiz8extra.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz10.pdf">CSCI2312_LittleQuiz10.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz11.pdf">CSCI2312_LittleQuiz11.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz12.pdf">CSCI2312_LittleQuiz12.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz14.pdf">CSCI2312_LittleQuiz14.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz15.pdf">CSCI2312_LittleQuiz15.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_LittleQuiz16.pdf">CSCI2312_LittleQuiz16.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_Quiz2.pdf">CSCI2312_Quiz2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_Quiz3.pdf">CSCI2312_Quiz3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_Quiz4.pdf">CSCI2312_Quiz4.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_Quiz6.pdf">CSCI2312_Quiz6.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_Quiz7.pdf">CSCI2312_Quiz7.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_Quiz7extra.pdf">CSCI2312_Quiz7extra.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_Quiz8.pdf">CSCI2312_Quiz8.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/CSCI2312_Quiz9.pdf">CSCI2312_Quiz9.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ0Solutions.pdf">LQ0Solutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ4MakeUpSolutions-1.pdf">LQ4MakeUpSolutions-1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ4Monday.pdf">LQ4Monday.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ4Wed-1.pdf">LQ4Wed-1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ5MakeUpSolutions.pdf">LQ5MakeUpSolutions.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ5Solution-1.pdf">LQ5Solution-1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ5Solution-3.pdf">LQ5Solution-3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ6MondaySolution-2.pdf">LQ6MondaySolution-2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ6WedSolution-3.pdf">LQ6WedSolution-3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ6WedSolution-4.pdf">LQ6WedSolution-4.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/LQ7Solutions-4.pdf">LQ7Solutions-4.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2312/quiz/Quiz4MakeUpSolution-2.pdf">Quiz4MakeUpSolution-2.pdf</a>
+							</ul>
+						</ul>
+					<li class="folder">CSCI 2441W Database Systems and Team Project
+						<ul>
+						<li class="folder">advanced_topics
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2441w/advanced_topics/indexing.pdf">indexing.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/advanced_topics/storage.pdf">storage.pdf</a>
+							</ul>
+						<li class="folder">ethics
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2441w/ethics/EA.pdf">EA.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/ethics/Net_Neutrality_and_Ethics.pdf">Net_Neutrality_and_Ethics.pdf</a>
+							</ul>
+						<li class="folder">exams
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2441w/exams/data_base_normalization.pdf">data_base_normalization.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/exams/exam2Answers.pdf">exam2Answers.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/exams/exma2.pdf">exma2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/exams/review.pdf">review.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/exams/studyGuide1.pdf">studyGuide1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/exams/studyGuide2.pdf">studyGuide2.pdf</a>
+							</ul>
+						<li class="external"><a target="_blank" href="https://github.com/JosephCrandall44/CSCI_2441_Database_Systems_and_Team_Projects.git">GitHub</a>
+						<li class="folder">hw
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2441w/hw/hw1.pdf">hw1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/hw/hw1sol.pdf">hw1sol.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/hw/hw2.pdf">hw2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/hw/hw2sol.pdf">hw2sol.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/hw/hw3.pdf">hw3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/hw/hw5.pdf">hw5.pdf</a>
+							</ul>
+						<li class="folder">notes
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_2441w/notes/1.pdf">1.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/notes/2.pdf">2.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/notes/3.pdf">3.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/notes/4.pdf">4.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/notes/5.pdf">5.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/notes/handwrittenNotes.pdf">handwrittenNotes.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/notes/levels_of_abastration.pdf">levels_of_abastration.pdf</a>
+							<li><a target="content" href="gw_undergrad/csci_2441w/notes/Storage_and_File_Structure.pdf">Storage_and_File_Structure.pdf</a>
+							</ul>
+						<li><a target="content" href="gw_undergrad/csci_2441w/syllabus.pdf">syllabus.pdf</a>
+						</ul>
+					<li class="folder">CSCI 3212 Algorithms
+						<ul>
+						<li class="external"><a target="_blank" href="http://www.seas.gwu.edu/~simhaweb/alg/coursework.html">Class Site</a>
+						<li class="external"><a target="_blank" href="https://www.youtube.com/watch?v=uqorYgAo0Ok">Steiner tree problem Video</a>
+						<li class="external"><a target="_blank" href="https://github.com/JosephCrandall44/CSCI_3212_Algorithms.git">GitHub</a>
+						<li><a target="content" href="gw_undergrad/csci_3212/AlgoNotes.pdf">AlgoNotes.pdf</a>
+						<li><a target="content" href="gw_undergrad/csci_3212/Exercises.pdf">Exercises.pdf</a>
+						<li><a target="content" href="gw_undergrad/csci_3212/FinalExamAlgorithmsTopics.pdf">FinalExamAlgorithmsTopics.pdf</a>
+						<li><a target="content" href="gw_undergrad/csci_3212/sample_exam.pdf">sample_exam.pdf</a>
+						</ul>
+					<li class="folder">CSCI 3411 Operating System Design (Under Construction)
+						<ul>
+						<li class="folder">Exams
+							<ul>
+							<li><a target="content" href="../test/doctypes/doctype-none.html">No DTD</a>
+							</ul>
+						<li class="external"><a target="_blank" href="https://github.com/JosephCrandall44/CSCI_3411_Operating_Systems.git">GitHub</a>
+						<li class="external"><a target="_blank" href="http://os-book.com">OS Book Site</a>
+						<li><a target="content" href="gw_undergrad/csci_3411/OSNotes.pdf">OSNotes.pdf</a>
+						</ul>
+					<li class="folder">CSCI 6461 Computer System Architecture (Under Construction)
+						<ul>
+						<li class="folder">Final
+							<ul>
+							<li><a target="content" href="gw_undergrad/csci_6461/Final/notes.htm">notes.htm</a>
+							</ul>
+						<li class="folder">HW
+							<ul>
+							<li><a target="content" href="../test/doctypes/doctype-none.html">No DTD</a>
+							</ul>
+						<li class="folder">Notes
+							<ul>
+							<li><a target="content" href="gw_undergrad/phys_2151W/notes/PHYS_2151_Intermediate_Laboratory_I_Notes.pdf">notes</a>
+							</ul>
+						</ul>
+					</ul>
+				<li class="folder">Mathematics
+					<ul>
+					<li class="folder">MATH 1231 Single-Variable Calculus I
+						<ul>
+						<li><a target="content" href="gw_undergrad/math_1231/RecitationProbs.pdf">RecitationProbs.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_1231/sc7.pdf">sc7.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_1231/syllabus.pdf">syllabus.pdf</a>
+						</ul>
+					<li class="folder">MATH 1232 Single-Variable Calculus II
+						<ul>
+						<li><a target="content" href="gw_undergrad/math_1232/complete_hw.pdf">complete_hw.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_1232/complete_quiz.pdf">complete_quiz.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_1232/complete_recitation_notes.pdf">complete_recitation_notes.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_1232/handwritten_class_notes.pdf">handwritten_class_notes.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_1232/Math_Sheet_reivew.pdf">Math_Sheet_reivew.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_1232/math1232_exam1.pdf">math1232_exam1.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_1232/sc7.pdf">sc7.pdf</a>
+						</ul>
+					<li class="folder">MATH 1233 Multivariable Calculus
+						<ul>
+						<li><a target="content" href="gw_undergrad/math_2233/complete_handwritten_notes.pdf">complete_handwritten_notes.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_2233/complete_hw.pdf">complete_hw.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_2233/complete_quiz.pdf">complete_quiz.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_2233/math2233_midterm.pdf">math2233_midterm.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_2233/math2233_syllabus.pdf">math2233_syllabus.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_2233/sc7.pdf">sc7.pdf</a>
+						</ul>
+					<li class="folder">MATH 2184 Linear Algebra
+						<ul>
+						<li><a target="content" href="gw_undergrad/math_2184/Gupta_Math2184_syllabus_ Spring_2015.pdf">Gupta_Math2184_syllabus_ Spring_2015.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_2184/lay_linalg_complete_notes.pdf">lay_linalg_complete_notes.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_2184/linearAlgebra_handwrittenNotes.pdf">linearAlgebra_handwrittenNotes.pdf</a>
+						</ul>
+					<li class="folder">MATH 3342 Ordinary Differential Equations
+						<ul>
+						<li><a target="content" href="gw_undergrad/math_3342/midterm2015_solutions.pdf">midterm2015_solutions.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_3342/ODE_Notes.pdf">ODE_Notes.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_3342/slopefieldhandout.pdf">slopefieldhandout.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_3342/Special_ODE--Special_Functions.pdf">Special_ODE--Special_Functions.pdf</a>
+						<li><a target="content" href="gw_undergrad/math_3342/Suggested_Homework_problems.pdf">Suggested_Homework_problems.pdf</a>
+						</ul>
+					</ul>
+				<li class="folder">Physics
+					<ul>
+					<li class="folder">PHYS 1021 University Physics I
+						<ul>
+						<li><a target="content" href="gw_undergrad/phys_1021/complete_class_lectures.pdf">complete_class_lectures.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1021/complete_handwritten_hw.pdf">complete_handwritten_hw.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1021/complete_handwritten_notes.pdf">complete_handwritten_notes.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1021/complete_lab_reports.pdf">complete_lab_reports.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1021/complete_midterms_and_final_exam_and_review.pdf">complete_midterms_and_final_exam_and_review.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1021/complete_quizzes.pdf">complete_quizzes.pdf</a>
+						</ul>
+					<li class="folder">PHYS 1022 University Physics II
+						<ul>
+						<li><a target="content" href="gw_undergrad/phys_1022/Class_Schedule_Spring_2015.pdf">Class_Schedule_Spring_2015.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/complete_hw.pdf">complete_hw.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/Course_Syllabus_Spring_2015.pdf">Course_Syllabus_Spring_2015.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/final_preparation.pdf">final_preparation.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/Formula_Sheet_Kn_Ch_20-34_Spring_2015.pdf">Formula_Sheet_Kn_Ch_20-34_Spring_2015.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/formula_sheets.pdf">formula_sheets.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/handwritten_notes.pdf">handwritten_notes.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/lab_reports.pdf">lab_reports.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/practice_exams.pdf">practice_exams.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1022/quiz_answers.pdf">quiz_answers.pdf</a>
+						</ul>
+					<li class="folder">PHYS 1023 Modern Physics
+						<ul>
+						<li><a target="content" href="gw_undergrad/phys_1023/finalConstants.pdf">finalConstants.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1023/finalFormulas.pdf">finalFormulas.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1023/lecture_slides.pdf">lecture_slides.pdf</a>
+						<li><a target="content" href="gw_undergrad/phys_1023/ModPhy-Serway.pdf">ModPhy-Serway.pdf</a>
+						<li class="folder">hw
+							<ul>
+							<li><a target="content" href="gw_undergrad/phys_1023/hw/quantum_hw.pdf">quantum_hw.pdf</a>
+							<li><a target="content" href="gw_undergrad/phys_1023/hw/quantum_warmups.pdf">quantum_warmups.pdf</a>
+							<li><a target="content" href="gw_undergrad/phys_1023/hw/relativity_hw.pdf">relativity_hw.pdf</a>
+							<li><a target="content" href="gw_undergrad/phys_1023/hw/relativity_warmups.pdf">relativity_warmups.pdf</a>
+							</ul>
+						</ul>
+					<li class="folder">PHYS 2151W Intermediate Laboratory I
+						<ul>
+						<li class="folder">exam
+							<ul>
+							<li><a target="content" href="gw_undergrad/phys_2151w/exam/Intermediate_Lab_Exam_Prep.pdf">Intermediate_Lab_Exam_Prep.pdf</a>
+							<li><a target="content" href="gw_undergrad/phys_2151w/exam/Sample_test_questions_2151_Midterm_1.pdf">Sample_test_questions_2151_Midterm_1.pdf</a>
+							<li><a target="content" href="gw_undergrad/phys_2151w/exam/Some_sample_questions_for_midterm_2.pdf">Some_sample_questions_for_midterm_2.pdf</a>
+							</ul>
+						<li><a target="content" href="gw_undergrad/phys_2151w/IntermediateLab_Hw2.pdf">IntermediateLab_Hw2.pdf</a>
+						<li class="folder">labs
+							<ul>
+							<li><a target="content" href="gw_undergrad/phys_2151W/labs/1.Spectral_Lines_Lab.pdf">1.Spectral_Lines_Lab</a>
+							<li><a target="content" href="gw_undergrad/phys_2151W/labs/2.Nuclear_Physics_Lab.pdf">2.Nuclear_Physics_Lab</a>
+							<li><a target="content" href="gw_undergrad/phys_2151W/labs/3.Moment_of_Inertia_Lab.pdf">3.Moment_of_Inertia_Lab</a>
+							<li><a target="content" href="gw_undergrad/phys_2151W/labs/4.Energy_to_Mass_Ratio_Lab.pdf">4.Energy_to_Mass_Ratio_Lab</a>
+							<li><a target="content" href="gw_undergrad/phys_2151W/labs/5.Photoelectric_Effect.pdf">5.Photoelectric_Effect</a>
+							</ul>
+						<li><a target="content" href="gw_undergrad/phys_2151w/PHYS_2151_Intermediate_Laboratory_I_Notes.pdf">PHYS_2151_Intermediate_Laboratory_I_Notes.pdf</a>
+						</ul>
+					</ul>
+			</ul>
+			<li class="folder">GW Research
+			<ul>
+				<li><a target="content" href="gw_research/bci.html">Brain Computer Interface</a>
+			</ul>
+			<li class="folder">W-L HighSchool
+			<ul>
+				<li><a target="content" href="wl/extended_essay.pdf">IB Extended Essay</a>
+			</ul>
+		</ul>
+	<li class="folder">Industry
+		<ul>
+		<li class="external"><a target="_blank" href="https://www.linkedin.com/in/joseph-crandall-67003570">LinkedIn</a>
+		<li><a target="content" href="business/Joseph_Crandall_resume.pdf">Resume</a>
+		</ul>
+	</ul>
+	</div>
+</body>
+</html>
